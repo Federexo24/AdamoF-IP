@@ -36,15 +36,29 @@
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% if images|length == 0 %}
-            <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
-        {% else %}
-            {% for img in images %}
-                <div class="col">
-                    <div class="card mb-3 ms-5" style="max-width: 540px;">
-                        <div class="row g-0">
-                            <div class="col-md-4">
-                                <img src="{{ img.url }}" class="card-img-top" alt="imagen">
-                            </div>
+        <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
+        {% else %} {% for img in images %}
+       
+        <div class="col">
+            <!-- Condicional para verificar el estado del personaje y aplicar una clase de borde correspondiente -->
+            {% if img.status == 'Alive' %}
+                <!-- Si el personaje está vivo ('Alive'), se asigna la clase 'border-success' para un borde verde -->
+                <div class="card mb-3 ms-5 border-success" style="max-width: 540px;">
+            {% elif img.status == 'Dead' %}
+                <!-- Si el personaje está muerto ('Dead'), se asigna la clase 'border-danger' para un borde rojo -->
+                <div class="card mb-3 ms-5 border-danger" style="max-width: 540px;">
+            {% else %}
+                <!-- Si el estado del personaje es desconocido o diferente, se asigna la clase 'border-warning' para un borde naranja -->
+                <div class="card mb-3 ms-5 border-warning" style="max-width: 540px;">
+            {% endif %}
+            
+            <!-- Contenedor interno para dividir la tarjeta en dos columnas -->
+            <div class="row g-0">
+                <!-- Columna que contiene la imagen del personaje -->
+                <div class="col-md-4">
+                    <img src="{{ img.url }}" class="card-img-top" alt="imagen">
+                </div>
+        
 
                             <div class="col-md-8">
                                 <div class="card-body">

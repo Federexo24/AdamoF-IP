@@ -29,12 +29,16 @@ def home(request):
 def search(request):
     search_msg = request.POST.get('query', '')
 
-    # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
-    # y luego renderiza el template (similar a home).
+    # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py
+    # y luego renderiza el template.
     if (search_msg != ''):
-        pass
+        images = services.getAllImages(search_msg) # llama a la funcion de obtener todas las imagenes usando el input del cuadro de busqueda
+        # llama a la lista de favoritos para que se muestren correctamente cuando utilizamos la barra de busqueda
+        favourite_list = services.getAllFavourites(request)
+        return render(request, 'home.html', {'images': images, 'favourite_list': favourite_list})
     else:
         return redirect('home')
+
 
 
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
